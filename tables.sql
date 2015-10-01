@@ -1,4 +1,5 @@
 
+
 CREATE TABLE `PACIENTES` (
   `id` int(11) NOT NULL,
   `tipo_id` varchar(2),
