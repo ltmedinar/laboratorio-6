@@ -26,6 +26,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -80,7 +81,8 @@ public class ServicesFacade {
     /**
      * Registra un nuevo paciente en el sistema
      * @param p El nuevo paciente
-     * @throws ServicesFacadeException si se presenta algún error lógico
+     * @throws edu.eci.pdsw.samples.services.ServiceFacadeException 
+     * si se presenta algún error lógico
      * o de persistencia (por ejemplo, si el paciente ya existe).
      */
     public void registrarNuevoPaciente(Paciente p) throws ServiceFacadeException, PersistenceException{
@@ -101,11 +103,23 @@ public class ServicesFacade {
      * @param idPaciente el identificador del paciente
      * @param tipoid el tipo de identificación
      * @param c la consulta a ser agregada
+     * @throws edu.eci.pdsw.samples.services.ServiceFacadeException
      */
-    
-    
-    public void agregarConsultaAPaciente(int idPaciente,String tipoid,Consulta c){
-        
+
+    public void agregarConsultaAPaciente(int idPaciente,String tipoid,Consulta c) throws ServiceFacadeException{
+        DaoFactory daof=DaoFactory.getInstance(properties);
+        try {
+            daof.beginSession();
+            Paciente pac = daof.getDaoPaciente().load(idPaciente, tipoid);
+            Set<Consulta> temp = pac.getConsultas();
+            temp.add(c);
+            pac.setConsultas(temp);
+            daof.getDaoPaciente().update(pac);
+            daof.endSession();
+        } catch (PersistenceException ex) {
+            throw new ServiceFacadeException("Error al consultar paciente.",ex);
+        }        
+
     }
     
 }
