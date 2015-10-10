@@ -83,8 +83,17 @@ public class ServicesFacade {
      * @throws ServicesFacadeException si se presenta algún error lógico
      * o de persistencia (por ejemplo, si el paciente ya existe).
      */
-    public void registrarNuevoPaciente(Paciente p) throws ServiceFacadeException{
-       
+    public void registrarNuevoPaciente(Paciente p) throws ServiceFacadeException, PersistenceException{
+    
+        DaoFactory daof=DaoFactory.getInstance(properties);
+        daof.beginSession();
+        daof.getDaoPaciente().save(p);
+        daof.endSession();
+        
+        
+        
+        
+        
     }
     
     /**
@@ -93,6 +102,8 @@ public class ServicesFacade {
      * @param tipoid el tipo de identificación
      * @param c la consulta a ser agregada
      */
+    
+    
     public void agregarConsultaAPaciente(int idPaciente,String tipoid,Consulta c){
         
     }
