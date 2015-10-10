@@ -16,6 +16,11 @@
  */
 package edu.eci.pdsw.samples.tests;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -41,6 +46,17 @@ public class NewEmptyJUnitTest {
     @Test
     public void registroConsultaTest(){
         
+    }
+    
+    @After
+    public void clearDB() throws SQLException{
+        try (
+                Connection conn = DriverManager.getConnection("jdbc:h2:file:./target/db/testdb;MODE=MYSQL", "sa", "")) {
+                Statement stmt = conn.createStatement();
+                stmt.execute("delete from CONSULTAS");
+                stmt.execute("delete from PACIENTES");
+                conn.commit();
+        }
     }
     
 }

@@ -67,7 +67,6 @@ public class ServicesFacade {
     public Paciente consultarPaciente(int idPaciente,String tipoid) throws ServiceFacadeException{
         DaoFactory daof=DaoFactory.getInstance(properties);
         try {
-            System.out.println("Entró acá!");
             daof.beginSession();
             Paciente p=daof.getDaoPaciente().load(idPaciente, tipoid);
             daof.endSession();
