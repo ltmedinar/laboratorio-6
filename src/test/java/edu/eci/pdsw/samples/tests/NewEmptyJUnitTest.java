@@ -16,10 +16,13 @@
  */
 package edu.eci.pdsw.samples.tests;
 
+import edu.eci.pdsw.samples.entities.Consulta;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
+import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -44,7 +47,18 @@ public class NewEmptyJUnitTest {
     }
     
     @Test
-    public void registroConsultaTest(){
+    public void registroConsultaTest() throws SQLException{
+        Date d = new Date();
+        java.sql.Date temp = new java.sql.Date(d.getTime());
+        
+        Date d2 = new Date();
+        java.sql.Date temp2 = java.sql.Date.valueOf("3015-05-03");
+        
+        Consulta c = new Consulta(temp2, "Consulta general sobre dolor de cabeza prolongado");
+        
+        assertTrue("La fecha y hora de la consulta sobrepasan la fecha actual del sistema", c.getFechayHora().before(temp));
+        
+                
         
     }
     

@@ -84,18 +84,14 @@ public class ServicesFacade {
      * @throws edu.eci.pdsw.samples.services.ServiceFacadeException 
      * si se presenta algún error lógico
      * o de persistencia (por ejemplo, si el paciente ya existe).
+     * @throws edu.eci.pdsw.samples.persistence.PersistenceException
      */
     public void registrarNuevoPaciente(Paciente p) throws ServiceFacadeException, PersistenceException{
     
         DaoFactory daof=DaoFactory.getInstance(properties);
         daof.beginSession();
         daof.getDaoPaciente().save(p);
-        daof.endSession();
-        
-        
-        
-        
-        
+        daof.endSession();  
     }
     
     /**
