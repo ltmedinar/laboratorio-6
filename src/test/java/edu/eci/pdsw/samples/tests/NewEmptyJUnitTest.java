@@ -45,9 +45,9 @@ public class NewEmptyJUnitTest {
         Date d = new Date();
         java.sql.Date temp = new java.sql.Date(d.getTime());
        
-        java.sql.Date temp2 = java.sql.Date.valueOf("500-05-03");
-        Paciente p= new Paciente(1234567, "juan", "juan", temp2);
-        assertTrue("La fecha y hora de nacimiento del nuevo paciente no es correcta", p.getFechaNacimiento().after(temp));
+        java.sql.Date temp2 = java.sql.Date.valueOf("2016-05-03");
+        Paciente p= new Paciente(1234567, "cc", "Juan Lopez", temp2);
+        assertTrue("La fecha y hora de nacimiento del nuevo paciente no es correcta", p.getFechaNacimiento().before(temp));
     }
     
     @Test
